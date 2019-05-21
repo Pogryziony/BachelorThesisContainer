@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1528698984 source:c:\users\adam\documents\c++\projekcik\main.cpp
+	<iostream>
+	<typeinfo>
+	<fstream>
+	<ios>
+	<sstream>
+	<windows.h>
+

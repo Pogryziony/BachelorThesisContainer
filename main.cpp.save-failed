@@ -1,0 +1,278 @@
+#include<iostream>
+#include<typeinfo>
+#include <fstream>
+#include <ios>
+#include <sstream>
+#include <windows.h>
+
+
+using namespace std;
+    const char *sciezka = "prace.txt";
+
+class Praca{
+
+    public:
+        int id;
+        string typPracy;
+        string tytul;
+        string nazwiskoAutora;
+        string imieAutora;
+        int rok;
+        string nazwiskoPromotora;
+        string imionaPromotora;
+        string slowaKluczowe;
+        string streszczenie;
+        string nowa_praca;
+
+         Praca() {
+        id = 0;
+        typPracy = "";
+        tytul = "";
+        nazwiskoAutora = "";
+        imieAutora = "";
+        rok = 0;
+        nazwiskoPromotora = "";
+        imionaPromotora = "";
+        slowaKluczowe = "";
+        streszczenie = "";
+    }
+
+    ~Praca()
+    {
+
+    }
+};
+
+class Biblioteka{
+
+    public:
+
+        int ilePrac;
+        Praca prace [1000];
+
+        Biblioteka()
+        {
+            ilePrac = 0;
+        }
+//------------ODCZYT Z PLIKU------------------
+
+        void odczyt(const char *sciezka)
+        {
+            ifstream plik_o(sciezka);
+            if (plik_o.is_open())
+            {
+                int i = 0;
+                string wiersz;
+                string s;
+                while(!plik_o.eof()&& i<=ilePrac)
+                {
+                    getline(plik_o,wiersz);
+                    if(wiersz =="") break;
+                    istringstream iss(wiersz);
+                    iss >> prace[i].id;
+
+                    getline(plik_o,wiersz);
+                    prace[i].typPracy = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].tytul = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].imieAutora = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].nazwiskoAutora = wiersz;
+
+                    getline(plik_o,wiersz);
+                    istringstream ass(wiersz);
+                    ass >> prace[i].rok;
+
+                    getline(plik_o,wiersz);
+                    prace[i].imionaPromotora = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].nazwiskoPromotora = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].slowaKluczowe = wiersz;
+
+                    getline(plik_o,wiersz);
+                    prace[i].streszczenie = wiersz;
+
+                    ilePrac+=1;
+                    ++i;
+                }
+            }else cout<<"error, blad wczytania"<<endl;
+            plik_o.close();
+        }
+//-----------ZAPIS DO PLIKU-------------------------------------
+        void zapis(const char *sciezka)
+        {
+
+
+        ofstream plik_z(sciezka, ios_base::app);
+            int i =0;
+            if (plik_z.is_open())
+            {
+                    prace[i].id=prace[i].id+1;
+                    plik_z << prace[i].id<<endl;
+                cout << "Podaj typ pracy: ";
+                    cin >> prace[i].typPracy;
+                    plik_z << prace[i].typPracy<<endl;
+                cout << "Podaj tytul: ";
+                    cin >> prace[i].tytul;
+                    plik_z << prace[i].tytul<<endl;
+                cout << "Podaj imie autora: ";
+                    cin >> prace[i].imieAutora;
+                    plik_z << prace[i].imieAutora<<endl;
+                cout << "Podaj nazwisko autora: ";
+                    cin >> prace[i].nazwiskoAutora;
+                    plik_z << prace[i].nazwiskoAutora<<endl;
+                cout << "Podaj rok: ";
+                    cin >> prace[i].rok;
+                    plik_z << prace[i].rok<<endl;
+                cout << "Podaj imiona promotora: ";
+                    cin >> prace[i].imionaPromotora;
+                    plik_z << prace[i].imionaPromotora<<endl;
+                cout << "Podaj nazwisko promotora: ";
+                    cin >> prace[i].nazwiskoPromotora;
+                    plik_z << prace[i].nazwiskoPromotora<<endl;
+                cout << "Podaj slowa kluczowe: ";
+                    cin >> prace[i].slowaKluczowe;
+                    plik_z << prace[i].slowaKluczowe<<endl;
+                cout << "Podaj streszczenie: ";
+                    cin >> prace[i].streszczenie;
+                    plik_z << prace[i].streszczenie<<endl;
+
+
+                }
+            else cout<<"Blad zapisu"<<endl;
+            plik_z.close();
+        }
+//-------EDYCJA DANYCH----------------------------
+
+void edytuj(const char *sciezka)
+        {
+
+
+        ofstream plik_z(sciezka, ios_base::app);
+            int i =0;
+            if (plik_z.is_open())
+            {
+                    cout <<"Ktora prace chcesz zedytowac?\n>>";
+                    cin >> i;
+                    i=i+1;
+            cout << "-------------------------------------------------\n";
+            cout <<"ID: "<< prace[i].id<<endl;
+            cout <<"Typ pracy: "<< prace[i].typPracy<<endl;
+            cout <<"Tytul: "<< prace[i].tytul<<endl;
+            cout <<"Autor: "<< prace[i].nazwiskoAutora;
+            cout << prace[i].imieAutora<<endl;
+            cout <<"Promotor: "<<prace[i].imionaPromotora;
+            cout << prace[i].nazwiskoPromotora<<endl;
+            cout <<"Rok: "<< prace[i].rok<<endl;
+            cout <<"Slowa kluczowe: "<< prace[i].slowaKluczowe<<endl;
+            cout <<"Streszczenie: "<< prace[i].streszczenie<<endl;
+            cout << "-------------------------------------------------\n";
+
+
+                }
+            else cout<<"Blad zapisu"<<endl;
+            plik_z.close();
+        }
+
+//-------WYPISANIE DANYCH NA EKRAN----------------
+
+        void wypisz(){
+        for(int i = 0 ; i < ilePrac ; i++)
+        {
+            cout << "-------------------------------------------------\n";
+            cout <<"ID: "<< prace[i].id<<endl;
+            cout <<"Typ pracy: "<< prace[i].typPracy<<endl;
+            cout <<"Tytul: "<< prace[i].tytul<<endl;
+            cout <<"Autor: "<< prace[i].nazwiskoAutora;
+            cout << prace[i].imieAutora<<endl;
+            cout <<"Promotor: "<<prace[i].imionaPromotora;
+            cout << prace[i].nazwiskoPromotora<<endl;
+            cout <<"Rok: "<< prace[i].rok<<endl;
+            cout <<"Slowa kluczowe: "<< prace[i].slowaKluczowe<<endl;
+            cout <<"Streszczenie: "<< prace[i].streszczenie<<endl;
+            cout << "-------------------------------------------------\n";
+        }
+        }
+        void wypiszSkrocone(){
+        for(int i = 0 ; i < ilePrac ; i++)
+        {
+            cout << "-------------------------------------------------\n";
+            cout << prace[i].id<<" "<< prace[i].typPracy<<" "<< prace[i].tytul<<" "<< prace[i].nazwiskoAutora<<" "<<prace[i].imieAutora<<" "<<prace[i].imionaPromotora
+            <<" "<<prace[i].nazwiskoPromotora<<" "<< prace[i].rok<<" "<< prace[i].slowaKluczowe<<" "<< prace[i].streszczenie<<endl;
+            cout << "-------------------------------------------------\n";
+        }
+        }
+};
+
+int main()
+{
+
+    const char *sciezka = "prace.txt";
+
+    Biblioteka *bibl = new Biblioteka();
+
+
+       int opcja;
+        bibl->odczyt(sciezka);
+
+        do{
+
+    cout << "Wybierz opcje:\n1.Wyswietlanie listy prac w formacie skroconym\n2.Wyswietlanie listy prac w formacie pelnym\n3.Dodawanie prac do biblioteki\n4.Edycja danych o pracy\n5.Wyszukiwanie prac na podstawie wybranego kryterium\n6.Funkcje dodatkowe\n7.Wyjscie z programu\n\n>>";
+    cin >> opcja;
+    switch(opcja) {
+        case 1:
+            system("cls");
+            cout << "Lista prac:\n";
+            bibl -> wypiszSkrocone();
+            cout << endl;
+
+            break;
+        case 2:
+            system("cls");
+            cout << "Lista prac:\n";
+            bibl -> wypisz();
+            cout << endl;
+            break;
+        case 3:
+            system("cls");
+            cout << "Zapis:\n";
+            bibl ->zapis(sciezka);
+            cout << endl;
+            break;
+        case 4:
+            system("cls");
+            cout << "Edycja:\n";
+            bibl ->edytuj(sciezka);
+            cout << endl;
+            break;
+        case 5:
+            system("cls");
+            cout << "Opcja5:\n";
+            break;
+        case 6:
+            system("cls");
+            cout << "Opcja6:\n";
+            break;
+        case 7:
+            system("cls");
+            cout << "Program zakonczy dzialanie...\n";
+            break;
+        default:
+            system("cls");
+            cout << "To nie jest poprawna opcja!\n\n";
+            break;
+        }
+}while(opcja!=7);
+
+    delete [] sciezka;
+
+    return 0;
+
+}

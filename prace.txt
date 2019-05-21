@@ -1,0 +1,40 @@
+1
+mgr
+Zaleznosci w programowaniu
+Artur
+Mariacki
+2008
+Robert
+Gacek
+cpp
+zaleznosci miedzy klasami
+2
+mgr
+C++
+Kamil
+Trocki
+2013
+Karol
+Wojtyga
+c++
+Przewodnik po C++
+3
+lic
+C#
+Cyprian
+Norwid
+2009
+Bartosz
+Nowak
+C#
+Nauka_C#
+4
+mgr
+Zlozone_algorytmy_programowania
+Zbigniew
+Mostowiak
+2009
+Hubert
+Urban
+programowanie
+Praca_przedstawia_algorytmy_uzywane_w_programowaniu
